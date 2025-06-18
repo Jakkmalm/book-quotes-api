@@ -30,7 +30,7 @@ builder.Services.AddCors(opts =>
 
 // 1) EF Core
 builder.Services.AddDbContext<AppDbContext>(opts =>
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 
 // 2) JWT-autentisering
@@ -106,6 +106,7 @@ app.UseAuthorization();
 // Koppla in alla [ApiController]-routes
 app.MapControllers();
 
+// TEST root API
 app.MapGet("/", () => "API is running!");
 
 app.Run();
