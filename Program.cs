@@ -30,7 +30,7 @@ builder.Services.AddCors(opts =>
 
 // 1) EF Core
 builder.Services.AddDbContext<AppDbContext>(opts =>
-    opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // 2) JWT-autentisering
