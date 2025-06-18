@@ -17,14 +17,14 @@ builder.Services.AddCors(opts =>
     {
         policy
          // Under dev är det oftast enklast att tillåta alla origin:
-         //.AllowAnyOrigin()
-         //.AllowAnyHeader()
-         //.AllowAnyMethod();
-
-         // Om du vill vara lite strängare, men ändå tillåta Angular på både http/https:
-         .WithOrigins("http://127.0.0.1:5501", "http://localhost:4200", "https://localhost:4200")
+         .AllowAnyOrigin()
          .AllowAnyHeader()
          .AllowAnyMethod();
+
+         // Om du vill vara lite strängare, men ändå tillåta Angular på både http/https:
+         //.WithOrigins("http://localhost:4200", "https://localhost:4200") // LÄGG TILL MIN FRONTENDAPP SENARE
+         //.AllowAnyHeader()
+         //.AllowAnyMethod();
     });
 });
 
