@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BookQuotesApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 
 namespace BookQuotesApi.Controllers
@@ -15,16 +16,19 @@ namespace BookQuotesApi.Controllers
             _db = db;
         }
 
+        public record RegisterDto(string Username, string Password);
+
         [HttpPost("register")]
-        public IActionResult Register(string username, string password)
+        [AllowAnonymous]  //registrera sig utan JWT
+        public IActionResult Register([FromBody] RegisterDto dto)
         {
-            if (_db.Users.Any(u => u.Username == username))
+            if (_db.Users.Any(u => u.Username == dto.Username))
                 return Conflict("Username already exists");
 
             var user = new AppUser
             {
-                Username = username,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(password)
+                Username = dto.Username,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password)
             };
 
             _db.Users.Add(user);
