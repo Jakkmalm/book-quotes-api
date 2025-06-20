@@ -8,6 +8,7 @@ namespace BookQuotesApi.Models
         public AppDbContext(DbContextOptions<AppDbContext> opts)
             : base(opts)
         { }
+        public DbSet<AppUser> Users { get; set; }
 
         public DbSet<Book> Books { get; set; }
     }
