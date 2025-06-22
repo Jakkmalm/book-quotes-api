@@ -20,6 +20,7 @@ namespace BookQuotesApi.Controllers
 
         [HttpPost("register")]
         [AllowAnonymous]  //registrera sig utan JWT
+        // PROVA ta bort AllowANonymous och testa......................senare.
         public IActionResult Register([FromBody] RegisterDto dto)
         {
             if (_db.Users.Any(u => u.Username == dto.Username))
@@ -34,7 +35,7 @@ namespace BookQuotesApi.Controllers
             _db.Users.Add(user);
             _db.SaveChanges();
 
-            return Ok("User created");
+            return Ok(new { message = "User created" });
         }
 
         [HttpGet]
