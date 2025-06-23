@@ -6,5 +6,8 @@
         public string Username { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;  // HASH!
         public string? Role { get; set; }  // Till framtida...
+
+        // Navigation property till böcker
+        public List<Book> Books { get; set; } = new();
     }
 }

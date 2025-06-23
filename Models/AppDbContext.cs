@@ -19,5 +19,9 @@ namespace BookQuotesApi.Models
         public string Title { get; set; }
         public string Author { get; set; }
         public DateTime Published { get; set; }
+
+        // Koppling till AppUser
+        public int AppUserId { get; set; }          // Foreign key
+        public AppUser? AppUser { get; set; }       // Navigation property
     }
 }
