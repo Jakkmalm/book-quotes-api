@@ -36,11 +36,18 @@ namespace BookQuotesApi.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_cfg["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+            // Skapa claims inklusive NameIdentifier (Id) och Name (username)
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username)
+            };
+
             // Bygg token
             var token = new JwtSecurityToken(
                 issuer: _cfg["Jwt:Issuer"],
                 audience: _cfg["Jwt:Audience"],
-                claims: new[] { new Claim(ClaimTypes.Name, user.Username) },
+                claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(double.Parse(_cfg["Jwt:DurationInMinutes"])),
                 signingCredentials: creds
             );
