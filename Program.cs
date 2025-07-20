@@ -16,13 +16,13 @@ builder.Services.AddCors(opts =>
     opts.AddDefaultPolicy(policy =>
     {
         policy
-         // Under dev ‰r det oftast enklast att tillÂta alla origin:
+         // Under dev √§r det oftast enklast att till√•ta alla origin:
          .AllowAnyOrigin()
          .AllowAnyHeader()
          .AllowAnyMethod();
 
-         // Om du vill vara lite str‰ngare, men ‰ndÂ tillÂta Angular pÂ bÂde http/https:
-         //.WithOrigins("http://localhost:4200", "https://localhost:4200") // LƒGG TILL MIN FRONTENDAPP SENARE
+         // Om du vill vara lite str√§ngare, men √§nd√• till√•ta Angular p√• b√•de http/https:
+         //.WithOrigins("http://localhost:4200", "https://localhost:4200") // L√ÑGG TILL MIN FRONTENDAPP SENARE
          //.AllowAnyHeader()
          //.AllowAnyMethod();
     });
@@ -59,7 +59,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    // 1) L‰gg till en s‰kerhetsdefinition fˆr Bearer-token
+    // 1) L√§gg till en s√§kerhetsdefinition f√∂r Bearer-token
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -70,7 +70,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Skriv: Bearer {din JWT-token}"
     });
 
-    // 2) St‰ll in att alla endpoints kr‰ver denna security
+    // 2) St√§ll in att alla endpoints kr√§ver denna security
     c.AddSecurityRequirement(new OpenApiSecurityRequirement {
         {
             new OpenApiSecurityScheme {
@@ -87,17 +87,21 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // Swagger i dev
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
+
+// Till√•ta swagger i prod.
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-// 1.1) CORS mÂste ligga fˆre Auth
+// 1.1) CORS m√•ste ligga f√∂re Auth
 // Aktivera CORS
-app.UseCors();  // anv‰nder DefaultPolicy
+app.UseCors();  // anv√§nder DefaultPolicy
 
 // Aktivera JWT-pipeline
 app.UseAuthentication();
